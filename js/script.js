@@ -99,6 +99,9 @@ images.forEach((imgThumb)=>{
 
 thumbnailsList[i].classList.add('active');
 
+setInterval(function() {
+    scroll("down");
+}, 3000);
 
 // slider di immagini indietro
 arrowUp.addEventListener('click', ()=>{
