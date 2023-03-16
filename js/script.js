@@ -70,6 +70,7 @@ let titleEl = document.getElementById("title");
 // variabile del testo
 let textEl = document.getElementById("text");
 
+let direction = "down";
 
 // variabile indice
 let i = 0;
@@ -99,21 +100,49 @@ images.forEach((imgThumb)=>{
 
 thumbnailsList[i].classList.add('active');
 
-setInterval(function() {
-    scroll("down");
+let scrollInterval = setInterval(function() {
+    scroll();
 }, 3000);
+
+// variabile bottone reverse
+let reverseBtn = document.getElementById('reverse');
+
+reverseBtn.addEventListener('click', ()=>{
+    if(direction == "up"){
+
+        direction = "down";
+    }else{
+        direction = "up";
+    }
+});
+
+let startStopBtn = document.getElementById('start');
+let startStopControl = true;
+// start stop al click
+startStopBtn.addEventListener('click', ()=>{
+    if(startStopControl){
+
+        clearInterval(scrollInterval);
+        startStopControl = false;
+    }else{
+        scrollInterval = setInterval(function() {
+            scroll();
+        }, 3000);
+        startStopControl = true;
+    }
+});
 
 // slider di immagini indietro
 arrowUp.addEventListener('click', ()=>{
 
-    
-   scroll("up");
+    direction = "up";
+   scroll();
 });
 
 // slider di immagini avanti
 arrowDown.addEventListener('click', ()=>{
-
-    scroll("down");
+    direction = "down";
+    scroll();
 });
 
 
@@ -126,7 +155,7 @@ arrowDown.addEventListener('click', ()=>{
 
 
 // funzione per lo scorrimento
-function scroll(direction) {
+function scroll() {
     thumbnailsList[i].classList.remove('active');
     if(direction == "up") {
         if(i == 0){
